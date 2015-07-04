@@ -24,8 +24,8 @@ module.exports.seedInitialTypes = function () {
             });
 
             Type.create({
-                image: ['public/clack-type.png'],
-                name: 'clack'
+                image: ['public/watch-type.png'],
+                name: 'watch'
             });
 
             console.log('types added to database');
