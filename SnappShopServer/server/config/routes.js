@@ -7,4 +7,5 @@ module.exports = function(app) {
     app.get('/logout', auth.logout);
 
     app.get('/products', controllers.products.getProducts);
+    app.get('/products/:id', controllers.products.getProductDetails);
 };

@@ -14,7 +14,7 @@ module.exports = function(app, config) {
     app.use(session({secret: 'some secret', resave: true, saveUninitialized: true}));
     app.use(passport.initialize());
     app.use(passport.session());
-    app.use(express.static(config.rootPath + '/public'));
+    app.use(express.static(config.rootPath + 'public'));
     app.use(morgan('combined'));
     app.use(function(err, req, res, next){
         res.status(err.status || 500);

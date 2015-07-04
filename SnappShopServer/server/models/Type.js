@@ -1,4 +1,8 @@
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+    env = process.env.NODE_ENV || 'development',
+    config = require('../config/config')[env],
+    serverDirectory = config.server + 'public/';
+
 
 var typeSchema = mongoose.Schema({
     name: {
@@ -19,12 +23,12 @@ module.exports.seedInitialTypes = function () {
 
         if (collection.length === 0) {
             Type.create({
-                image: ['public/coat-type.png'],
+                image: [serverDirectory + 'coat-type.png'],
                 name: 'coat'
             });
 
             Type.create({
-                image: ['public/watch-type.png'],
+                image: [serverDirectory + 'watch-type.png'],
                 name: 'watch'
             });
 

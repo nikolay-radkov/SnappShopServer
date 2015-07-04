@@ -1,5 +1,7 @@
 var mongoose = require('mongoose'),
-    encryption = require('../utilities/encryption');
+    encryption = require('../utilities/encryption'),
+    env = process.env.NODE_ENV || 'development',
+    config = require('../config/config')[env];
 
 var userSchema = mongoose.Schema({
     username: {type: String, required: true, unique: true},
@@ -7,8 +9,11 @@ var userSchema = mongoose.Schema({
     lastName: {type: String},
     email: {type: String, unique: true},
     salt: String,
-    hashPass: String
-});
+    hashPass: String,
+    avatar: {
+        type: String,
+        default:config.server + 'anonimous.png'
+    }});
 
 userSchema.method({
     authenticate: function (password) {
@@ -28,7 +33,6 @@ module.exports.seedInitialUsers = function () {
             var salt,
                 hashedPwd;
 
-
             salt = encryption.generateSalt();
             hashedPwd = encryption.generateHashedPassword(salt, '123456');
             User.create({
@@ -37,7 +41,8 @@ module.exports.seedInitialUsers = function () {
                 lastName: 'Stathom',
                 email: 'jack@stathom.com',
                 salt: salt,
-                hashPass: hashedPwd
+                hashPass: hashedPwd,
+                avatar: config.server + 'person1.png'
             });
 
             salt = encryption.generateSalt();
@@ -48,7 +53,8 @@ module.exports.seedInitialUsers = function () {
                 lastName: 'Balboa',
                 email: 'test@test.com',
                 salt: salt,
-                hashPass: hashedPwd
+                hashPass: hashedPwd,
+                avatar: config.server + 'person2.jpg'
             });
 
             console.log('users added to database');
