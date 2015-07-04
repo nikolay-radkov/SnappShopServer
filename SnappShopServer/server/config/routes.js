@@ -8,4 +8,5 @@ module.exports = function(app) {
 
     app.get('/products', controllers.products.getProducts);
     app.get('/products/:id', controllers.products.getProductDetails);
+    app.put('/products/:id', controllers.products.putProductBackground);
 };

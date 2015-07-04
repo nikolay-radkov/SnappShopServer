@@ -59,10 +59,10 @@ module.exports = {
             }
         );
     },
-    getProductDetails: function(req, res, next) {
-        var id = req.params['id'];
+    getProductDetails: function (req, res, next) {
+        var id = req.params.id;
 
-        Product.find({'_id':id}, { _id: 1, background:1, images:1}, function(err, products){
+        Product.find({'_id': id}, {_id: 1, background: 1, name: 1, images: 1}, function (err, products) {
             if (err) {
                 console.log('Could not get products: ' + err);
                 return;
@@ -79,6 +79,23 @@ module.exports = {
         //TODO: implement it
     },
     putProductBackground: function (req, res, next) {
-        //TODO: implement it
+        var image = req.body.image;
+
+        Product.findById(req.params.id, function (err, product) {
+            if (!product) {
+                return next(new Error('Could not load Product'));
+            }
+            else {
+                product.background = image;
+
+                product.save(function (err) {
+                    if (err) {
+                        res.send({success: false});
+                    } else {
+                        res.send({success: true});
+                    }
+                });
+            }
+        });
     }
 };
