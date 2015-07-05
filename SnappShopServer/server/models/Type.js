@@ -1,14 +1,11 @@
 var mongoose = require('mongoose'),
     env = process.env.NODE_ENV || 'development',
     config = require('../config/config')[env],
-    serverDirectory = config.server + 'public/';
+    serverDirectory = config.server;
 
 
 var typeSchema = mongoose.Schema({
-    name: {
-        type: String,
-        default: "Hat"
-    },
+    name: String,
     image: String
 });
 

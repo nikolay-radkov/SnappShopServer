@@ -62,18 +62,28 @@ module.exports = {
     getProductDetails: function (req, res, next) {
         var id = req.params.id;
 
-        Product.find({'_id': id}, {_id: 1, background: 1, name: 1, images: 1}, function (err, products) {
+        Product.findById(id, {_id: 1, background: 1, name: 1, images: 1, typeId: 1}, function (err, product) {
             if (err) {
                 console.log('Could not get products: ' + err);
                 return;
             }
 
-            res.send(products);
-            res.end();
+            Type.findById(product.typeId, {_id: 1, image: 1}, function (err, type) {
+                if (err) {
+                    console.log('Could not get types: ' + err);
+                    return;
+                }
+
+                res.send({
+                    product: product,
+                    type: type
+                });
+                res.end();
+            });
         });
     },
     getProductInfo: function (req, res, next) {
-        var id =  req.params.id;
+        var id = req.params.id;
 
         Product.findById(id, function (err, product) {
             if (err) {
@@ -106,7 +116,7 @@ module.exports = {
         var vote = res.body;
         var id = req.params.id;
 
-        Product.findById(id,function(err, product){
+        Product.findById(id, function (err, product) {
             if (!product) {
                 return next(new Error('Could not load Product'));
             }

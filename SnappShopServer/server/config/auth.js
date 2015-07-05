@@ -20,11 +20,12 @@ module.exports = {
     },
     logout: function(req, res, next) {
         req.logout();
-        res.redirect('/');
+        res.send({success: true});
     },
     isAuthenticated: function(req, res, next) {
         if (!req.isAuthenticated()) {
-            res.redirect('/login');
+            res.statusCode(403);
+            res.end();
         }
         else {
             next();

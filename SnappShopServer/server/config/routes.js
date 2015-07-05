@@ -4,7 +4,7 @@ var auth = require('./auth'),
 module.exports = function(app) {
     app.post('/register', controllers.users.createUser);
     app.post('/login', auth.login);
-    app.get('/logout', auth.logout);
+    app.post('/logout', auth.logout);
 
     app.get('/products', controllers.products.getProducts);
 
