@@ -34,8 +34,12 @@ module.exports = {
                 }, {_id: 1, firstName: 1, lastName: 1, avatar: 1}, function (err, users) {
                     if (err) {
                         console.log('Could not get users: ' + err);
+                        res.status(404);
+                        res.end();
                         return;
                     }
+
+                    console.log(typeIds);
 
                     Type.find({
                         _id: {
@@ -44,6 +48,8 @@ module.exports = {
                     }, {_id: 1, image: 1}, function (err, types) {
                         if (err) {
                             console.log('Could not get types: ' + err);
+                            res.status(404);
+                            res.end();
                             return;
                         }
 
@@ -113,7 +119,7 @@ module.exports = {
         });
     },
     putVote: function (req, res, next) {
-        var vote = res.body;
+        var vote = req.body;
         var id = req.params.id;
 
         Product.findById(id, function (err, product) {

@@ -35,6 +35,7 @@ module.exports.seedInitialProducts = function () {
                 var typesIds = [];
                 for (var typeIndex in types) {
                     typesIds.push(types[typeIndex]._id);
+                    console.log(types[typeIndex]);
                 }
 
                 if (collection.length === 0) {
