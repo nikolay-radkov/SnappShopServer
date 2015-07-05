@@ -50,12 +50,12 @@ module.exports.seedInitialProducts = function () {
                         }
 
                         Product.create({
-                            name: 'Coat',
+                            name: 'Suit',
                             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
                             price: 2000,
                             location: 'Irish dolche shop best clothes',
-                            images: [config.server + 'coat1.jpg', config.server + 'coat2.jpg', config.server + 'coat3.jpg'],
-                            background: config.server + 'coat1.jpg',
+                            images: [config.server + 'suit1.jpg', config.server + 'suit2.jpg', config.server + 'suit3.jpg'],
+                            background: config.server + 'suit1.jpg',
                             authorId: userIds[0],
                             typeId: typesIds[0],
                             votes: [false, true, true, false, false, false, true, false, false, false]
