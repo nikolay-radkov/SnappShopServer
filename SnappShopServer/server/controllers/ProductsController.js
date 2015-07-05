@@ -73,10 +73,55 @@ module.exports = {
         });
     },
     getProductInfo: function (req, res, next) {
-        //TODO: implement it
+        var id =  req.params.id;
+
+        Product.findById(id, function (err, product) {
+            if (err) {
+                console.log('Could not get product: ' + err);
+                return;
+            }
+            User.findById(product.authorId, {_id: 1, firstName: 1, lastName: 1, avatar: 1}, function (err, user) {
+                if (err) {
+                    console.log('Could not get user: ' + err);
+                    return;
+                }
+
+                Type.findById(product.typeId, {_id: 1, image: 1}, function (err, type) {
+                    if (err) {
+                        console.log('Could not get type: ' + err);
+                        return;
+                    }
+
+                    res.send({
+                        product: product,
+                        author: user,
+                        type: type
+                    });
+                    res.end();
+                });
+            });
+        });
     },
-    postVote: function (req, res, next) {
-        //TODO: implement it
+    putVote: function (req, res, next) {
+        var vote = res.body;
+        var id = req.params.id;
+
+        Product.findById(id,function(err, product){
+            if (!product) {
+                return next(new Error('Could not load Product'));
+            }
+            else {
+                product.votes.push(vote.value);
+
+                product.save(function (err) {
+                    if (err) {
+                        res.send({success: false});
+                    } else {
+                        res.send({success: true});
+                    }
+                });
+            }
+        });
     },
     putProductBackground: function (req, res, next) {
         var image = req.body.image;
@@ -98,4 +143,5 @@ module.exports = {
             }
         });
     }
-};
+}
+;
